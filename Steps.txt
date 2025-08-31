@@ -1,0 +1,8 @@
+open - ai dall- e model that generates image from text input
+cloudinary - a cloud -  based image storage service to make our image load speed fast
+used vite for building react project more fast
+used tailwindcss to make our application much simpler 
+npm run dev to start local host for client
+setting up routing inside app.jsx
+
+
