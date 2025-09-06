@@ -6,6 +6,8 @@ npm run dev to start local host for client
 setting up routing inside app.jsx
 rafce for creating general component in home.jsx like boiler plate
 created pages folder and created 3 files inside
+created utils folder and created index js files
+px is horizontal padding and py is vertical padding 
 
 
 
