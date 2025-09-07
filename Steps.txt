@@ -10,6 +10,14 @@ created utils folder and created index js files
 px is horizontal padding and py is vertical padding 
 created server folder 
 maintain cors - cross origin resource sharing for allowing the server to accept request from different origin
+created mongo db folder and created connect.js file 
+build connection string after logging in from mongodb atlas
+created modules inside mongodb and created post.js schema 
+created routes folder and created two files under it dalleroute.js and postroute.js to call api from frontend
+created openai api key from openai.com
+
+
+
 
 
 
