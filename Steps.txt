@@ -8,6 +8,8 @@ rafce for creating general component in home.jsx like boiler plate
 created pages folder and created 3 files inside
 created utils folder and created index js files
 px is horizontal padding and py is vertical padding 
+created server folder 
+maintain cors - cross origin resource sharing for allowing the server to accept request from different origin
 
 
 
