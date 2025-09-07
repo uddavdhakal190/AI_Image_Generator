@@ -15,6 +15,9 @@ build connection string after logging in from mongodb atlas
 created modules inside mongodb and created post.js schema 
 created routes folder and created two files under it dalleroute.js and postroute.js to call api from frontend
 created openai api key from openai.com
+signed up for cloudinary so that it will help to host our images and retrieve them later making application more faster
+generated api key from it 
+
 
 
 
