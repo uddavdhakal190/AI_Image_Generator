@@ -2,22 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    font-family: 'Inter', sans-serif;
-}
+* { font-family: 'Inter', sans-serif; }
+
+body { @apply bg-gradient-to-b from-slate-50 to-white text-gray-900; }
 
 @media screen and (min-width: 480px) {
-    .card:nth-child(7n + 1) {
-        grid-column: auto/span 2;
-        grid-row: auto/span 2;
-    }
+  .card:nth-child(7n + 1) {
+    grid-column: auto/span 2;
+    grid-row: auto/span 2;
+  }
 }
 
-.prompt::-webkit-scrollbar {
-    width: 5px;
-}
- 
-.prompt::-webkit-scrollbar-thumb {
-  background-color: #666e75;
-  border-radius: 5px;
-}
+.prompt::-webkit-scrollbar { width: 5px; }
+.prompt::-webkit-scrollbar-thumb { background-color: #666e75; border-radius: 5px; }
+
+/* Reusable UI utilities */
+.btn-primary { @apply inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-5 py-2.5 text-sm font-medium shadow hover:from-indigo-500 hover:to-violet-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-60 disabled:cursor-not-allowed; }
+.btn-secondary { @apply inline-flex items-center justify-center rounded-md bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-2.5 text-sm font-medium shadow hover:from-emerald-500 hover:to-teal-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed; }
+.input-base { @apply bg-white/70 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 outline-none block w-full p-3 backdrop-blur; }
+.card-base { @apply rounded-xl border border-gray-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-md transition; }
+.section-title { @apply font-extrabold text-[28px] sm:text-[32px] text-gray-900; }
+.section-subtitle { @apply mt-2 text-gray-500 text-[14px]; }

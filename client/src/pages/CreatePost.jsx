@@ -111,8 +111,8 @@ const CreatePost = () => {
   return (
     <section className="max-w-7xl mx-auto">
       <div>
-        <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
-        <p className="mt-2 text-[#666e75] text-[14px] max-w-[500px]">
+        <h1 className="section-title">Create</h1>
+        <p className="section-subtitle max-w-[600px]">
           Generate an imaginative image and share it with the community.
         </p>
       </div>
@@ -139,7 +139,7 @@ const CreatePost = () => {
             handleSurpriseMe={handleSurpriseMe}
           />
 
-          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
+          <div className="relative card-base text-gray-900 text-sm w-[18rem] p-3 h-[18rem] flex justify-center items-center overflow-hidden">
             {form.photo ? (
               <img
                 src={form.photo}
@@ -155,7 +155,7 @@ const CreatePost = () => {
             )}
 
             {generatingImg && (
-              <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
+              <div className="absolute inset-0 z-0 flex justify-center items-center bg-black/40 rounded-xl">
                 <Loader />
               </div>
             )}
@@ -166,7 +166,7 @@ const CreatePost = () => {
           <button
             type="button"
             onClick={generateImage}
-            className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="btn-secondary w-full sm:w-auto"
             disabled={generatingImg}
           >
             {generatingImg ? 'Generating...' : 'Generate'}
@@ -177,7 +177,7 @@ const CreatePost = () => {
           <p className="mt-2 text-[#666e75] text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
           <button
             type="submit"
-            className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="mt-3 btn-primary w-full sm:w-auto"
             disabled={loading}
           >
             {loading ? 'Sharing...' : 'Share with the Community'}
