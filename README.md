@@ -1,10 +1,10 @@
 # AI Image Generator - MERN Stack
 
-A full-stack AI image generator application built with the MERN stack (MongoDB, Express.js, React, Node.js) that uses Hugging Face Stable Diffusion for image generation and stores images directly (no Cloudinary).
+A full-stack AI image generator application built with the MERN stack (MongoDB, Express.js, React, Node.js) that uses OpenAI DALL·E 3 for image generation and stores images directly (no external image hosting).
 
 ## 🚀 Features
 
-- Generate AI images using Hugging Face Inference API (Stable Diffusion)
+- Generate AI images using OpenAI Images API (DALL·E 3)
 - No external image hosting (images stored as data URIs or in DB)
 - Share generated images with the community
 - Responsive React frontend with Tailwind CSS
@@ -16,8 +16,8 @@ A full-stack AI image generator application built with the MERN stack (MongoDB, 
 ### Backend
 - Node.js & Express.js
 - MongoDB with Mongoose
-- Hugging Face Inference API for image generation
-- No Cloudinary (removed)
+- OpenAI Images API (DALL·E 3) for image generation
+- No external image hosting required
 - CORS for cross-origin requests
 
 ### Frontend
@@ -31,7 +31,7 @@ Before running this application, make sure you have:
 
 - Node.js (v14 or higher)
 - MongoDB (local or MongoDB Atlas)
-- Hugging Face API token (from https://huggingface.co/settings/tokens)
+- OpenAI API key (from https://platform.openai.com/)
 
 ## 🔧 Installation & Setup
 
@@ -62,8 +62,11 @@ Create a `.env` file in the `server` directory with the following variables:
 MONGODB_URL=mongodb://localhost:27017/ai-image-generator
 # Or use MongoDB Atlas: mongodb+srv://username:password@cluster.mongodb.net/ai-image-generator
 
-# Hugging Face Token
-HF_API_TOKEN=your_hf_api_token_here
+# OpenAI
+OPENAI_API_KEY=your_openai_api_key_here
+# optional
+PORT=5050
+NODE_ENV=development
 
 # Server Configuration
 PORT=5050
@@ -72,11 +75,10 @@ NODE_ENV=development
 
 ### 5. Getting API Keys
 
-#### Hugging Face API Token:
-1. Go to https://huggingface.co/settings/tokens
-2. Sign up or log in
-3. Create a token with read access
-4. Set it as HF_API_TOKEN
+#### OpenAI API Key:
+1. Go to https://platform.openai.com/
+2. Create an API key from your account settings
+3. Set it as OPENAI_API_KEY in server/.env
 
 ## 🚀 Running the Application
 
@@ -106,17 +108,16 @@ For production deployment, you'll need to:
 ## 🔧 Recent Fixes Applied
 
 ### Issues Fixed:
-1. **Wrong API Integration**: Changed from OpenAI DALL-E to DeepAI API
-2. **Outdated Dependencies**: Removed unnecessary OpenAI package
-3. **API Configuration**: Fixed environment variable names and API calls
-4. **Error Handling**: Improved error handling for both APIs
+1. Migrated image generation to OpenAI DALL·E 3
+2. Standardized image size to 1024x1024 and base64 response format
+3. Improved server error logging and responses
+4. Cleaned up unused dependencies (axios, node-fetch, cloudinary)
 
 ### Key Changes Made:
-- Updated `server/controllers/dalleController.js` to use DeepAI API
-- Fixed FormData usage for DeepAI API calls
-- Updated environment variable from `OPENAI_API_KEY` to `DEEPAI_API_KEY`
-- Removed OpenAI dependency from package.json
-- Added comprehensive error handling and fallback mock images
+- Updated `server/controllers/dalleController.js` and `server/routes/postRoutes.js` to use OpenAI Images API
+- Enforced `response_format: b64_json` and `size: 1024x1024`
+- Enhanced error handling with raw API details
+- Removed unused packages and updated scripts
 
 ## 📁 Project Structure
 
@@ -142,7 +143,7 @@ AI_Image_Generator/
 ## 🔍 API Endpoints
 
 ### Image Generation
-- `POST /api/v1/post/generate-image` - Generate image using Hugging Face (returns base64 data URI)
+- `POST /api/v1/dalle/generate-image` - Generate image using OpenAI (returns base64 data URI)
 
 ### Posts
 - `GET /api/v1/post` - Get all posts
@@ -176,7 +177,7 @@ AI_Image_Generator/
 1. **Generate Images**:
    - Enter a descriptive prompt
    - Click "Generate" to create an AI image
-   - The image will be generated using Hugging Face; no Cloudinary is used
+   - The image will be generated using OpenAI; no external hosting is used
 
 2. **Create Posts**:
    - Add your name and a prompt
@@ -209,7 +210,7 @@ If you encounter any issues:
 
 ---
 
-**Note**: This application requires valid API keys for DeepAI and Cloudinary to function properly. Without these keys, the app will display mock images for development purposes.
+**Note**: This application requires a valid OPENAI_API_KEY to function properly.
 
 ## 📜 Changelog
 

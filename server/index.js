@@ -32,7 +32,7 @@ app.use('/api/v1/dalle', dalleRoutes);
 
 // Root route
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Hello from DeepAI Image Generator!" });
+  res.status(200).json({ message: "Hello from OpenAI Image Generator!" });
 });
 
 // Error handling middleware
