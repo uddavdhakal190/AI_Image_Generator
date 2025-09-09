@@ -210,3 +210,11 @@ If you encounter any issues:
 ---
 
 **Note**: This application requires valid API keys for DeepAI and Cloudinary to function properly. Without these keys, the app will display mock images for development purposes.
+
+## 📜 Changelog
+
+- 2025-09-09
+  - Switched image generation to OpenAI DALL·E 3 (`model: dall-e-3`).
+  - Standardized image size to `1024x1024` (supported by DALL·E 3).
+  - Requested `response_format: b64_json` to ensure base64 output.
+  - Improved server error details to include raw API response for easier debugging.
