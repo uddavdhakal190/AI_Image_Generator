@@ -1,23 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { preview } from '../assets';
-import { getRandomPrompt } from '../utils';
 import { FormField, Loader } from '../components';
+import { getRandomPrompt } from '../utils';
+import { preview } from '../assets';
 
 const CreatePost = () => {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    name: '',
-    prompt: '',
-    photo: '',
-  });
-
+  const [form, setForm] = useState({ name: '', prompt: '', photo: '' });
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
@@ -25,55 +22,89 @@ const CreatePost = () => {
   };
 
   const generateImage = async () => {
-    if (form.prompt) {
-      try {
-        setGeneratingImg(true);
-        const response = await fetch('https://dalle-arbb.onrender.com/api/v1/dalle', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            prompt: form.prompt,
-          }),
-        });
+    if (!form.prompt) {
+      alert('Please provide a proper prompt');
+      return;
+    }
 
-        const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-      } catch (err) {
-        alert(err);
-      } finally {
-        setGeneratingImg(false);
+    try {
+      setGeneratingImg(true);
+
+      // Generate image from backend
+      const response = await fetch('/api/v1/dalle/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: form.prompt }),
+      });
+
+      // Safely parse response: handle empty/non-JSON bodies to avoid
+      // "Unexpected end of JSON input" when proxy/server returns no JSON
+      let data = {};
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        data = await response.json().catch(() => ({}));
+      } else {
+        const text = await response.text().catch(() => '');
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch (_) {
+          data = { message: text };
+        }
       }
-    } else {
-      alert('Please provide proper prompt');
+
+      if (!response.ok) {
+        console.error('Generation API error:', {
+          status: response.status,
+          error: data?.error,
+          message: data?.message,
+        });
+        throw new Error(
+          data?.message || data?.error || `Failed to generate image (status ${response.status})`
+        );
+      }
+
+      if (!data || !data.photo) {
+        throw new Error(data?.message || 'No image received from generation API');
+      }
+
+      setForm((prev) => ({ ...prev, photo: data.photo }));
+    } catch (err) {
+      console.error('Error generating image:', err);
+      alert(err.message || 'Failed to generate image');
+    } finally {
+      setGeneratingImg(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (form.prompt && form.photo) {
-      setLoading(true);
-      try {
-        const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ...form }),
-        });
+    if (!form.name || !form.prompt || !form.photo) {
+      alert('Please enter your name, a prompt, and generate an image first.');
+      return;
+    }
 
-        await response.json();
-        alert('Success');
-        navigate('/');
-      } catch (err) {
-        alert(err);
-      } finally {
-        setLoading(false);
+    try {
+      setLoading(true);
+      const response = await fetch('/api/v1/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        console.error('Create post failed:', response.status, data);
+        throw new Error(data?.message || 'Failed to share the image');
       }
-    } else {
-      alert('Please generate an image with proper details');
+
+      navigate('/');
+    } catch (err) {
+      console.error('Error creating post:', err);
+      alert(err.message || 'Failed to share the image');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,7 +112,9 @@ const CreatePost = () => {
     <section className="max-w-7xl mx-auto">
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
-        <p className="mt-2 text-[#666e75] text-[14px] max-w-[500px]">Generate an imaginative image through DALL-E AI and share it with the community</p>
+        <p className="mt-2 text-[#666e75] text-[14px] max-w-[500px]">
+          Generate an imaginative image and share it with the community.
+        </p>
       </div>
 
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
@@ -90,7 +123,7 @@ const CreatePost = () => {
             labelName="Your Name"
             type="text"
             name="name"
-            placeholder="Ex., john doe"
+            placeholder="John Doe"
             value={form.name}
             handleChange={handleChange}
           />
@@ -99,7 +132,7 @@ const CreatePost = () => {
             labelName="Prompt"
             type="text"
             name="prompt"
-            placeholder="An Impressionist oil painting of sunflowers in a purple vase…"
+            placeholder="A plush toy robot sitting against a yellow wall"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
@@ -107,7 +140,7 @@ const CreatePost = () => {
           />
 
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
-            { form.photo ? (
+            {form.photo ? (
               <img
                 src={form.photo}
                 alt={form.prompt}
@@ -133,17 +166,19 @@ const CreatePost = () => {
           <button
             type="button"
             onClick={generateImage}
-            className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            disabled={generatingImg}
           >
             {generatingImg ? 'Generating...' : 'Generate'}
           </button>
         </div>
 
         <div className="mt-10">
-          <p className="mt-2 text-[#666e75] text-[14px]">** Once you have created the image you want, you can share it with others in the community **</p>
+          <p className="mt-2 text-[#666e75] text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
           <button
             type="submit"
             className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            disabled={loading}
           >
             {loading ? 'Sharing...' : 'Share with the Community'}
           </button>

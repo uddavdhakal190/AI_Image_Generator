@@ -6,7 +6,8 @@ Create a `.env` file in the server directory with the following variables:
 
 ```
 MONGODB_URL=your_mongodb_connection_string_here
-OPENAI_API_KEY=your_openai_api_key_here
+HF_API_TOKEN=your_hugging_face_api_token
+PORT=5050
 ```
 
 ## How to Get API Keys
@@ -17,11 +18,10 @@ OPENAI_API_KEY=your_openai_api_key_here
 3. Get your connection string
 4. Replace `<password>` with your actual password
 
-### OpenAI API Key
-1. Go to [OpenAI Platform](https://platform.openai.com/)
-2. Create an account
-3. Go to API Keys section
-4. Create a new API key
+### Hugging Face API Token
+1. Go to https://huggingface.co/settings/tokens
+2. Create a token with read access
+3. Set it as `HF_API_TOKEN`
 
 ## Running the Server
 
@@ -29,4 +29,4 @@ OPENAI_API_KEY=your_openai_api_key_here
 2. Create `.env` file with your API keys
 3. Start server: `npm start`
 
-The server will run on port 8080.
+The server will run on port 5050 by default.

@@ -1,0 +1,8 @@
+{
+  "name": "ai-image-generator-monorepo",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
