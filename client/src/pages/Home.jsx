@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card, FormField, Loader } from '../components';
+import config from '../config';
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
@@ -20,7 +21,7 @@ const Home = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/v1/post', { method: 'GET' });
+      const response = await fetch(`${config.API_BASE_URL}/api/v1/post`, { method: 'GET' });
 
       if (response.ok) {
         const result = await response.json();
