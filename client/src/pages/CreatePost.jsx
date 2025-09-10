@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormField, Loader } from '../components';
+import { FormField, Loader, ImageGenerationLoader } from '../components';
 import { getRandomPrompt } from '../utils';
 import { preview } from '../assets';
 import config from '../config';
@@ -156,8 +156,8 @@ const CreatePost = () => {
             )}
 
             {generatingImg && (
-              <div className="absolute inset-0 z-0 flex justify-center items-center bg-black/40 rounded-xl">
-                <Loader />
+              <div className="absolute inset-0 z-0 flex justify-center items-center bg-white/90 backdrop-blur-sm rounded-xl">
+                <ImageGenerationLoader />
               </div>
             )}
           </div>
