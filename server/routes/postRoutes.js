@@ -2,6 +2,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import OpenAI from 'openai';
+import mongoose from 'mongoose';
 import Post from '../models/Post.js';
 
 dotenv.config();
@@ -12,11 +13,24 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // GET all posts
 router.get('/', async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.error('MongoDB not connected. ReadyState:', mongoose.connection.readyState);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Database connection not available' 
+      });
+    }
+
     const posts = await Post.find({});
     res.status(200).json({ success: true, data: posts });
   } catch (err) {
     console.error('Error fetching posts:', err);
-    res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' });
+    res.status(500).json({ 
+      success: false, 
+      message: 'Fetching posts failed, please try again',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
