@@ -200,22 +200,3 @@ AI_Image_Generator/
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🆘 Support
-
-If you encounter any issues:
-1. Check the troubleshooting section above
-2. Review server and client console logs
-3. Ensure all environment variables are set correctly
-4. Verify API keys are valid and have sufficient credits
-
----
-
-**Note**: This application requires a valid OPENAI_API_KEY to function properly.
-
-## 📜 Changelog
-
-- 2025-09-09
-  - Switched image generation to OpenAI DALL·E 3 (`model: dall-e-3`).
-  - Standardized image size to `1024x1024` (supported by DALL·E 3).
-  - Requested `response_format: b64_json` to ensure base64 output.
-  - Improved server error details to include raw API response for easier debugging.
