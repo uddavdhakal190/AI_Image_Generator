@@ -18,7 +18,7 @@ A full-stack AI image generator application built with the MERN stack (MongoDB, 
 - MongoDB with Mongoose
 - OpenAI Images API (DALL·E 3) for image generation
 - No external image hosting required
-- CORS for cross-origin requests
+- CORS for cross-origin request
 
 ### Frontend
 - React with Vite
