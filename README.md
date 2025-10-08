@@ -180,21 +180,13 @@ AI_Image_Generator/
    - The image will be generated using OpenAI; no external hosting is used
 
 2. **Create Posts**:
-   - Add your name and a prompt
+   - Add name and a prompt
    - Generate an image
    - Click "Create Post" to share with the community
 
 3. **View Community Posts**:
    - Navigate to the home page to see all shared images
    - Browse through the community gallery
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## 📄 License
 
