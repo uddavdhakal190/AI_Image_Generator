@@ -2,7 +2,7 @@
 
 A full-stack AI image generator application built with the MERN stack (MongoDB, Express.js, React, Node.js) that uses OpenAI DALL·E 3 for image generation and stores images directly.
 
-## 🚀 Features
+## Features
 
 - Generate AI images using OpenAI Images API (DALL·E 3)
 - No external image hosting (images stored as data URIs or in DB)
@@ -11,7 +11,7 @@ A full-stack AI image generator application built with the MERN stack (MongoDB, 
 - MongoDB database for storing posts
 - Mock image generation for development (when API keys are not configured)
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 ### Backend
 - Node.js & Express.js
@@ -25,7 +25,7 @@ A full-stack AI image generator application built with the MERN stack (MongoDB, 
 - Tailwind CSS for styling
 - React Router for navigation
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running this application, make sure you have:
 
@@ -33,7 +33,7 @@ Before running this application, make sure you have:
 - MongoDB (local or MongoDB Atlas)
 - OpenAI API key (from https://platform.openai.com/)
 
-## 🔧 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the repository
 ```bash
@@ -80,7 +80,7 @@ NODE_ENV=development
 2. Create an API key from your account settings
 3. Set it as OPENAI_API_KEY in server/.env
 
-## 🚀 Running the Application
+##  Running the Application
 
 ### Development Mode
 
@@ -105,7 +105,7 @@ For production deployment, you'll need to:
 2. Serve the built files through your server
 3. Set `NODE_ENV=production` in your environment variables
 
-## 🔧 Recent Fixes Applied
+##  Recent Fixes Applied
 
 ### Issues Fixed:
 1. Migrated image generation to OpenAI DALL·E 3
