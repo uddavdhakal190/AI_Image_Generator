@@ -4,7 +4,7 @@ A full-stack AI image generator application built with the MERN stack (MongoDB, 
 
 ## Features
 
-- Generate AI images using OpenAI Images API (DALL·E 3)
+- Generate AI images using OpenAI Images API (DALL·E 3) model.
 - No external image hosting (images stored as data URIs or in DB)
 - Share generated images with the community
 - Responsive React frontend with Tailwind CSS
