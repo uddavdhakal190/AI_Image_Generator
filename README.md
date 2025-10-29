@@ -177,7 +177,7 @@ AI_Image_Generator/
 1. **Generate Images**:
    - Enter a descriptive prompt
    - Click "Generate" to create an AI image
-   - The image will be generated using OpenAI; no external hosting is used.
+   - The image will be generated using OpenAI; no external hosting is used
 
 2. **Create Posts**:
    - Add name and a prompt
