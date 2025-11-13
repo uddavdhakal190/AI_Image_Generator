@@ -1,6 +1,6 @@
 # AI Image Generator - MERN Stack
 
-A full-stack AI image generator application built with the MERN stack (MongoDB, Express.js, React, Node.js) that uses OpenAI DALL·E 3 for image generation and stores images directly.
+A full-stack AI image generator application built with the MERN stack (MongoDB, Express.js, React, Node.js) that uses OpenAI DALL·E 3 for image generation and stores images.
 
 ## Features
 
